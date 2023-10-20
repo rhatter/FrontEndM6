@@ -1,21 +1,29 @@
 import React from "react";
 import "./LoginForm.css";
+import backImg from "../../img/loginBack.jpeg";
+import { Col } from "react-bootstrap";
 
 function LoginForm() {
   return (
-    <div className="formArea">
-      <form action="">
-        <div className="titleArea">
-          <span>Accedi</span>
+    <div className="formPage">
+      <Col xs={12} sm={8} md={6} lg={4} xl={4} className="column">
+        <div className="formArea">
+          <form action="">
+            <div className="titleArea">
+              <span>Condividi le tue esperienze</span>
+            </div>
+            <input type="text" placeholder="E-mail" />
+            <input type="text" placeholder="Password" />
+            <div>
+              <button type="submit">Accedi</button>
+            </div>
+          </form>
         </div>
-        <div>
-          <input type="text" placeholder="E-mail" />
-          <input type="text" placeholder="Password" />
-        </div>
-        <div>
-          <button type="submit">Accedi</button>
-        </div>
-      </form>
+      </Col>
+      <div
+        className="imageArea"
+        style={{ backgroundImage: `url(${backImg})` }}
+      ></div>
     </div>
   );
 }
