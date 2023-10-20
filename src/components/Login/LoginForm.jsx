@@ -12,11 +12,13 @@ function LoginForm() {
             <div className="titleArea">
               <span>Condividi le tue esperienze</span>
             </div>
-            <input type="text" placeholder="E-mail" />
-            <input type="text" placeholder="Password" />
-            <div>
-              <button type="submit">Accedi</button>
+            <div className="inputArea">
+              <input type="text" placeholder="E-mail" />
             </div>
+            <div className="inputArea">
+              <input type="text" placeholder="Password" />
+            </div>
+            <button type="submit">Accedi</button>
           </form>
         </div>
       </Col>

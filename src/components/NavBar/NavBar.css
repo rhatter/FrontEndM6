@@ -3,9 +3,28 @@
   object-fit: cover;
 }
 
-.NavBar {
+.navbar {
   justify-content: center;
   margin: 0 !important;
+  background-color: #005c64 !important;
+  box-shadow: 0px 8px 8px #00000087;
+}
+.navbar a {
+  color: rgba(255, 255, 255, 0.576);
+  font-size: 1.2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: 0.3s ease;
+}
+.navbar a:hover {
+  color: white;
+}
+
+.navbar-toggler {
+  border: rgba(255, 255, 255, 0.424) solid 2px !important;
+  background-color: rgba(255, 255, 255, 0.258) !important;
+}
+.navbar-toggler:focus {
+  outline: 5px solid #005c64 !important;
 }
 
 .searchMain {

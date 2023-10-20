@@ -26,7 +26,7 @@ function MyNavBar({}) {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary NavBar">
+      <Navbar collapseOnSelect expand="lg" className="NavBar">
         <Container fluid>
           <Navbar.Brand href="/">
             <img src={logoImg} alt="bookLogo" />
