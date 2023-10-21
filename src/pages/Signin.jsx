@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MyNavBar from "../components/NavBar/NavBar";
+import SignIn from "../components/SignIn/SignIn";
 
 function Signin() {
   const redirectHandler = () => {
@@ -8,7 +9,10 @@ function Signin() {
 
   return (
     <>
-      <MyNavBar />
+      <div className="signPage">
+        <MyNavBar />
+        <SignIn />
+      </div>
     </>
   );
 }

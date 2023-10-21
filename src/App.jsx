@@ -6,6 +6,7 @@ import Error from "./pages/Error";
 import Success from "./pages/Success";
 import Signin from "./pages/Signin";
 import Login from "./pages/Login";
+import Protected from "./middlewares/Protected";
 
 function App() {
   return (
@@ -13,10 +14,11 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/book/:bookId" element={<Details />} />
-
         <Route path="/success" element={<Success />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Signin" element={<Signin />} />
+
+        <Route element={<Protected />}></Route>
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>

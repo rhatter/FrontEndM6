@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./SingleArticle.css";
+import { Link } from "react-router-dom";
 
 function SingleArticle({ post }) {
   useEffect(() => {
@@ -12,7 +13,9 @@ function SingleArticle({ post }) {
       <div className="Card">
         <div className="CardImageArea">
           <div className="CardImage">
-            <img src={post.cover} alt="" className="Immagine" />
+            <Link to={`/book/${post._id}`}>
+              <img src={post.cover} alt="" className="Immagine" />
+            </Link>
           </div>
         </div>
         <div className="CardTextArea">

@@ -1,9 +1,9 @@
 import React from "react";
-import "./LoginForm.css";
-import backImg from "../../img/loginBack.jpeg";
+import "./SignIn.css";
+import backImg from "../../img/signin.jpg";
 import { Col } from "react-bootstrap";
 
-function LoginForm() {
+function SignIn() {
   return (
     <div className="formPage">
       <Col xs={12} sm={8} md={6} lg={4} xl={4} className="column">
@@ -34,4 +34,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default SignIn;
