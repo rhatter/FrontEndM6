@@ -5,8 +5,16 @@ import Articles from "../components/Articles/Articles";
 import SearchBar from "../components/SearchBar/SearchBar";
 
 function Home() {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("userLocalData")));
+  }, []);
+
   const redirectHandler = () => {
     window.location.href = `${process.env.REACT_APP_URL}/auth/github`;
+  };
+  const checkStates = () => {
+    console.log(user);
   };
 
   return (
@@ -14,6 +22,7 @@ function Home() {
       <MyNavBar />
       <SearchBar />
       <Articles />
+      <button onClick={checkStates}>checkstate</button>
     </>
   );
 }
