@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./DetailedArticle.css";
 import { Col } from "react-bootstrap";
 import Comments from "../Comments/Comments";
+import NewComment from "../NewComment/NewComment";
 
 function DetailedArticle({ post }) {
-  useEffect(() => {
-    console.log(post);
-  }, [post]);
-
+  useEffect(() => {}, [post]);
   let firstLine = "";
   let restOfTheLines = [];
   const allContent = () => {
@@ -27,7 +25,6 @@ function DetailedArticle({ post }) {
     for (let i = 1; i < secondSplit.length; i++) {
       restOfTheLines.push(secondSplit[i]);
     }
-    console.log("rest of", restOfTheLines);
   };
   allContent();
 
@@ -64,7 +61,6 @@ function DetailedArticle({ post }) {
           <div className="lastBlock"></div>
         </div>
       </Col>
-      <Comments />
     </div>
   );
 }

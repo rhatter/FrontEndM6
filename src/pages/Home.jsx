@@ -24,7 +24,6 @@ function Home() {
       </div>
       <SearchBar />
       <Articles />
-      <button onClick={checkStates}>checkstate</button>
     </>
   );
 }

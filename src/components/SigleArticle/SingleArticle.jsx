@@ -8,36 +8,48 @@ function SingleArticle({ post }) {
   useEffect(() => {
     console.log("dati", post);
   }, []);
+  const userData = JSON.parse(localStorage.getItem("userLocalData"));
+  const dirToDetails = () => {
+    if (userData) {
+      return userData.role === "Utente" || userData.role === "Creator"
+        ? `/book/user/${post._id}`
+        : `/book/${post._id}`;
+    } else {
+      return `/book/${post._id}`;
+    }
+  };
 
   return (
-    <Col className="cardArea" sm={12} lg={12} xl={6}>
-      <div className="Card">
-        <div className="CardImageArea">
-          <div className="CardImage">
-            <Link to={`/book/${post._id}`}>
-              <img src={post.cover} alt="" className="Immagine" />
-            </Link>
+    <>
+      <Col className="cardArea" sm={12} lg={12} xl={6}>
+        <div className="Card">
+          <div className="CardImageArea">
+            <div className="CardImage">
+              <Link to={dirToDetails()}>
+                <img src={post.cover} alt="" className="Immagine" />
+              </Link>
+            </div>
+          </div>
+          <div className="CardTextArea">
+            <div className="TitleArea">
+              <p className="title">{post.title}</p>
+            </div>
+            <div className="ContentArea">
+              <p className="content">{post.content}</p>
+            </div>
+            <div className="ReadTimeArea">
+              <span className="Author">{post.author}</span>
+              <span className="ReadTime">
+                {post.readTime.value} {post.readTime.unit}
+              </span>
+            </div>
+            <div className="categoryArea">
+              <span className="category">{post.category}</span>
+            </div>
           </div>
         </div>
-        <div className="CardTextArea">
-          <div className="TitleArea">
-            <p className="title">{post.title}</p>
-          </div>
-          <div className="ContentArea">
-            <p className="content">{post.content}</p>
-          </div>
-          <div className="ReadTimeArea">
-            <span className="Author">{post.author}</span>
-            <span className="ReadTime">
-              {post.readTime.value} {post.readTime.unit}
-            </span>
-          </div>
-          <div className="categoryArea">
-            <span className="category">{post.category}</span>
-          </div>
-        </div>
-      </div>
-    </Col>
+      </Col>
+    </>
   );
 }
 export default SingleArticle;

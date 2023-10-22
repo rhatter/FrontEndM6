@@ -5,7 +5,7 @@ import Login from "../pages/Login";
 import axios from "axios";
 
 const isAuthorized = () => {
-  const token = JSON.parse(localStorage.getItem("autorization"));
+  const token = JSON.parse(localStorage.getItem("token"));
   return token;
 };
 
@@ -14,8 +14,7 @@ export const useSession = () => {
     return await axios.post(
       `${process.env.REACT_APP_URL}/posts/verifyToken`,
       {
-        sessionTokens:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+        sessionTokens: localStorage.getItem("token"),
       },
       {
         headers: {

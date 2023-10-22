@@ -33,6 +33,7 @@ function LoginForm() {
       "userLocalData",
       JSON.stringify(response.data.payload)
     );
+    localStorage.setItem("token", JSON.stringify(response.data.token));
     if (response.data.payload) {
       setUtenteErrato(false);
       navigate("/");

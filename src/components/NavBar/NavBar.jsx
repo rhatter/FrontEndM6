@@ -6,13 +6,17 @@ import logoImg from "../../img/logo.png";
 import genericImg from "../../img/genProfile.png";
 
 import "./NavBar.css";
+import { Prev } from "react-bootstrap/esm/PageItem";
 
 function MyNavBar({}) {
   const [logged, setLogged] = useState(false);
+  const [userCheck, setUserCheck] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userLocalData"));
   useEffect(() => {
-    userData ? setLogged(true) : setLogged(true);
-  });
+    const userDataCheck = JSON.parse(localStorage.getItem("userLocalData"));
+    console.log("user data check", userDataCheck);
+    userDataCheck ? setLogged(true) : setLogged(false);
+  }, [userCheck]);
 
   const createLoginButtons = () => {
     return [
@@ -28,6 +32,22 @@ function MyNavBar({}) {
     ];
   };
 
+  const createLogoutButtons = () => {
+    return (
+      <span className="logout" onClick={logoutFunction}>
+        Logout
+      </span>
+    );
+  };
+  const logoutFunction = () => {
+    localStorage.removeItem("userLocalData");
+    localStorage.removeItem("token");
+    localStorage.removeItem("autorization");
+    setUserCheck((prevstate) => {
+      return prevstate + 1;
+    });
+  };
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="NavBar">
@@ -35,21 +55,25 @@ function MyNavBar({}) {
           <Navbar.Brand href="/">
             <img src={logoImg} alt="bookLogo" />
           </Navbar.Brand>
-          <Navbar.Toggle
-            aria-controls="responsive-navbar-nav"
-            className={logged && "toggleButt"}
-          />
+
+          <div className="topRightGroup">
+            <Nav className="me-auto"></Nav>
+            {logged && createUsrProfile()}
+            <Navbar.Toggle
+              aria-controls="responsive-navbar-nav"
+              className={logged && "toggleButt"}
+            />
+          </div>
           <Navbar.Collapse
             id="responsive-navbar-nav"
             className={logged && "toggleButt"}
           >
-            <Nav className="me-auto"></Nav>
             <Nav>
               <Nav.Link href="/">Home</Nav.Link>
               {!logged && createLoginButtons()}
+              {logged && createLogoutButtons()}
             </Nav>
           </Navbar.Collapse>
-          {logged && createUsrProfile()}
         </Container>
       </Navbar>
     </>

@@ -19,13 +19,16 @@
   padding-left: 1.6rem !important;
   padding-right: 1.6rem !important;
 }
-.navbar a {
+.navbar a,
+.logout {
   color: rgba(255, 255, 255, 0.576);
   font-size: 1rem;
   font-family: Arial, Helvetica, sans-serif;
   transition: 0.3s ease;
+  cursor: pointer;
 }
-.navbar a:hover {
+.navbar a:hover,
+.logout:hover {
   color: white;
 }
 
@@ -85,16 +88,13 @@
 }
 
 .profileImgArea {
-  width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   height: 86px;
   align-items: center;
-  position: absolute;
   right: 0;
   top: 0;
   pointer-events: none;
-  padding: 0 8rem;
 }
 
 .profileImgArea > img {
@@ -120,4 +120,22 @@
 
 .navbar-toggler:focus {
   box-shadow: none !important;
+}
+
+.topRightGroup {
+  display: flex;
+  align-items: center;
+}
+
+.topRightGroup button {
+  height: 3rem;
+  margin-left: 1rem;
+  transform: scale(0.8);
+}
+
+@media only screen and (min-width: 992px) {
+  .topRightGroup {
+    position: absolute;
+    right: 1rem;
+  }
 }

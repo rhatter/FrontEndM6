@@ -71,11 +71,12 @@ function SignIn() {
           `${process.env.REACT_APP_URL}/users/create`,
           finalBody
         );
-        console.log(jwt_decode(response.data.payload));
+        console.log(jwt_decode(response.data.token));
         localStorage.setItem(
           "userLocalData",
-          JSON.stringify(jwt_decode(response.data.payload))
+          JSON.stringify(jwt_decode(response.data.token))
         );
+        localStorage.setItem("token", JSON.stringify(response.data.token));
         navigate("/");
         return response;
       } catch (error) {

@@ -9,8 +9,9 @@ import DetailedArticle from "../components/DetailedArticle/DetailedArticle";
 import NewComment from "../components/NewComment/NewComment";
 import Comments from "../components/Comments/Comments";
 
-function Details() {
+function UserDetail() {
   const [thisPost, setThisPost] = useState({});
+  const [commented, setCommented] = useState(0);
   const { bookId } = useParams();
   async function getBooks() {
     const post = await axios.get(
@@ -20,15 +21,16 @@ function Details() {
   }
   useEffect(() => {
     getBooks();
-  }, []);
+  }, [commented]);
 
   return (
     <>
       <MyNavBar />
       <DetailedArticle post={thisPost} />
+      <NewComment bookId={bookId} setCommented={setCommented} />
       <Comments post={thisPost} />
     </>
   );
 }
 
-export default Details;
+export default UserDetail;

@@ -9,7 +9,9 @@ function Login() {
 
   return (
     <>
-      <MyNavBar />
+      <div className="loginNav">
+        <MyNavBar />
+      </div>
       <LoginForm />
     </>
   );
