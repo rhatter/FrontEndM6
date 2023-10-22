@@ -9,6 +9,10 @@ import "./NavBar.css";
 
 function MyNavBar({}) {
   const [logged, setLogged] = useState(false);
+  const userData = JSON.parse(localStorage.getItem("userLocalData"));
+  useEffect(() => {
+    userData ? setLogged(true) : setLogged(true);
+  });
 
   const createLoginButtons = () => {
     return [
@@ -19,7 +23,7 @@ function MyNavBar({}) {
   const createUsrProfile = () => {
     return [
       <div className="profileImgArea">
-        <img src={genericImg} alt="" />
+        <img src={userData ? userData.usrImg : genericImg} alt="" />
       </div>,
     ];
   };

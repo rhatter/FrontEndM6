@@ -86,7 +86,7 @@ function SignIn() {
 
   return (
     <div className="formPage">
-      <Col xs={12} sm={8} md={6} lg={6} xl={5} className="column">
+      <Col xs={12} sm={8} md={6} lg={4} xl={4} className="column">
         <div className="preFormArea">
           <div></div>
           <div className="formArea">

@@ -2,24 +2,30 @@ import React, { useState, useEffect } from "react";
 import MyNavBar from "../components/NavBar/NavBar";
 import "./Home.css";
 import { useSession } from "../middlewares/Protected";
+import axios from "axios";
+import { Col } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import DetailedArticle from "../components/DetailedArticle/DetailedArticle";
 
 function Details() {
-  const fakeAuth = () => {
-    localStorage.setItem(
-      "autorization",
-      JSON.stringify(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-      )
+  const [thisPost, setThisPost] = useState({});
+  const { bookId } = useParams();
+  async function getBooks() {
+    const post = await axios.get(
+      `${process.env.REACT_APP_URL}/posts/byid/${bookId}`
     );
-  };
-  const session = useSession();
-  console.log(session);
-
+    setThisPost(post.data.post);
+  }
   useEffect(() => {
-    fakeAuth();
+    getBooks();
   }, []);
 
-  return <MyNavBar />;
+  return (
+    <>
+      <MyNavBar />
+      <DetailedArticle post={thisPost} />
+    </>
+  );
 }
 
 export default Details;

@@ -3,6 +3,8 @@ import { Container, Col, Row } from "react-bootstrap";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import SingleArticle from "../SigleArticle/SingleArticle";
+import "./Articles.css";
+import Pagination from "../Pagination/Pagination";
 
 function Articles() {
   const [articlesData, setArticles] = useState([]);
@@ -20,11 +22,11 @@ function Articles() {
   const createArticles = () => {
     console.log("article data", articlesData);
     return (
-      <Col xs={11}>
-        {articlesData.map((post) => (
-          <SingleArticle post={post} />
-        ))}
-      </Col>
+      <div className="ArticlesArea">
+        <Col xs={12} md={12}>
+          <Pagination />
+        </Col>
+      </div>
     );
   };
   return <>{articlesData ? createArticles() : "mancato"}</>;

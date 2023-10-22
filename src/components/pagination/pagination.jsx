@@ -1,22 +1,26 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 //per fare una paginazione facile facile
 import ResponsivePagination from "react-responsive-pagination";
 import "react-responsive-pagination/themes/classic.css";
 //per poter fare le fetch semplici
 import axios from "axios";
+import SingleArticle from "../SigleArticle/SingleArticle";
+import { Col } from "react-bootstrap";
+import "./Pagination.css";
 
-function pagination() {
+const Pagination = () => {
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize, setPageSize] = useState(4);
 
   async function getBooks() {
     const posts = await axios.get(
       `${process.env.REACT_APP_URL}/posts?page=${page}&pageSize=${pageSize}`
     );
     console.log(
+      "from pagination",
       `${process.env.REACT_APP_URL}/posts?page=${page}&pageSize=${pageSize}`
     );
     setPosts(posts.data.posts);
@@ -35,25 +39,26 @@ function pagination() {
     setPageSize(val);
   };
 
+  const renderChangNumberArticle = () => {
+    <input type="number" onChange={(e) => changeVisual(e.target.value)} />;
+  };
+
   return (
-    <div className="App">
-      <input type="number" onChange={(e) => changeVisual(e.target.value)} />
-      {posts &&
-        posts.map((post) => (
-          <div>
-            <p>{post.title}</p>
-          </div>
-        ))}
-
-      {totalPages && (
-        <ResponsivePagination
-          current={page}
-          total={totalPages}
-          onPageChange={onChangePage}
-        />
-      )}
-    </div>
+    <>
+      {posts.map((post) => (
+        <SingleArticle post={post} />
+      ))}
+      <Col xs={12}>
+        {totalPages && (
+          <ResponsivePagination
+            current={page}
+            total={totalPages}
+            onPageChange={onChangePage}
+          />
+        )}
+      </Col>
+    </>
   );
-}
+};
 
-export default pagination;
+export default Pagination;

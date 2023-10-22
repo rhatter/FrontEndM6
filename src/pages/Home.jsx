@@ -19,7 +19,9 @@ function Home() {
 
   return (
     <>
-      <MyNavBar />
+      <div className="homeNav">
+        <MyNavBar />
+      </div>
       <SearchBar />
       <Articles />
       <button onClick={checkStates}>checkstate</button>
