@@ -8,6 +8,7 @@ import Signin from "./pages/Signin";
 import Login from "./pages/Login";
 import Protected from "./middlewares/Protected";
 import UserDetail from "./pages/UserDetail";
+import MydataPage from "./pages/MydataPage";
 
 function App() {
   return (
@@ -16,13 +17,15 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route path="/book/:bookId" element={<Details />} />
 
-        <Route path="/success" element={<Success />} />
+        <Route path="/success/:token" element={<Success />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Signin" element={<Signin />} />
 
         <Route element={<Protected />}>
           <Route path="/book/user/:bookId" element={<UserDetail />}></Route>
+          <Route path="/book/mydata" element={<MydataPage />}></Route>
         </Route>
+
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>

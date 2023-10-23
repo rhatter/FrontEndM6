@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import MyNavBar from "../components/NavBar/NavBar";
 import "./Home.css";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useParams } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 function Success() {
-  const [token, setToken] = useSearchParams();
+  const { token } = useParams();
+  console.log(jwt_decode(token));
 
   useEffect(() => {
-    const currentToken = Object.fromEntries([...token]);
-    const valToken = Object.keys(currentToken)[0];
-    console.log(valToken);
-    localStorage.setItem("token", valToken);
+    localStorage.setItem("token", token);
   }, [token]);
 
   return (

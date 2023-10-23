@@ -4,6 +4,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logoImg from "../../img/logo.png";
 import genericImg from "../../img/genProfile.png";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import "./NavBar.css";
 import { Prev } from "react-bootstrap/esm/PageItem";
@@ -39,6 +41,7 @@ function MyNavBar({}) {
       </span>
     );
   };
+  const navigate = useNavigate();
   const logoutFunction = () => {
     localStorage.removeItem("userLocalData");
     localStorage.removeItem("token");
@@ -46,6 +49,7 @@ function MyNavBar({}) {
     setUserCheck((prevstate) => {
       return prevstate + 1;
     });
+    navigate("/");
   };
 
   return (
@@ -58,7 +62,7 @@ function MyNavBar({}) {
 
           <div className="topRightGroup">
             <Nav className="me-auto"></Nav>
-            {logged && createUsrProfile()}
+            <Link to={"/book/mydata"}>{logged && createUsrProfile()}</Link>
             <Navbar.Toggle
               aria-controls="responsive-navbar-nav"
               className={logged && "toggleButt"}

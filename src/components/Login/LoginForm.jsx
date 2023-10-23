@@ -6,11 +6,16 @@ import { useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import gitIcon from "../../img/github.svg";
 
 function LoginForm() {
   const [formData, setFormData] = useState({});
   const [utenteErrato, setUtenteErrato] = useState(false);
   const [logTried, setLogTried] = useState(false);
+
+  const redirectHandler = () => {
+    window.location.href = `${process.env.REACT_APP_URL}/auth/github`;
+  };
 
   const navigate = useNavigate();
 
@@ -31,7 +36,7 @@ function LoginForm() {
     console.log(response.data.payload);
     localStorage.setItem(
       "userLocalData",
-      JSON.stringify(response.data.payload)
+      JSON.stringify(jwt_decode(response.data.token))
     );
     localStorage.setItem("token", JSON.stringify(response.data.token));
     if (response.data.payload) {
@@ -84,8 +89,13 @@ function LoginForm() {
           </div>
 
           <button className="registrati">Registrati</button>
+          <button className="gitAccess" onClick={redirectHandler}>
+            Accedi con Github
+            <img className="gitIcon" src={gitIcon} alt="" />
+          </button>
         </div>
       </Col>
+
       <div
         className="imageArea"
         style={{ backgroundImage: `url(${backImg})` }}

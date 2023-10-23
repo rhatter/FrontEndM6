@@ -1,18 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./SignIn.css";
 import backImg from "../../img/signin.jpg";
 import { Col } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function SignIn() {
   const [password, setPassword] = useState(null);
-  const [passwordControl, setPasswordControl] = useState(false);
-  const [passwordCompiled, setPasswordCompiled] = useState(false);
   const [image, setImage] = useState(null);
   const [formData, setFormData] = useState({});
+  const [registerError, setRegisterError] = useState(null);
+  const [sendable, setSendable] = useState(false);
+  const [selectedRadius, setSelectedRadius] = useState(null);
+  const [secondPassword, setSecondPassword] = useState(null);
+  useEffect(() => {
+    if (
+      formData.name &&
+      formData.email &&
+      formData.password &&
+      formData.role &&
+      formData.password === secondPassword
+    ) {
+      setSendable(true);
+    } else {
+      setSendable(false);
+    }
+  }, [formData, secondPassword]);
+
+  const renderRegisterError = () => {
+    return (
+      <div>
+        <span>{registerError}</span>
+      </div>
+    );
+  };
 
   const navigate = useNavigate();
   const formDataImport = (e) => {
@@ -26,22 +49,12 @@ function SignIn() {
 
   const modifiedPassword = (e) => {
     setPassword(e.target.value);
-    e.target.value === passwordCompiled
-      ? setPasswordControl(true)
-      : setPasswordControl(false);
   };
   const controlPassword = (e) => {
-    setPasswordCompiled(e.target.value);
+    setSecondPassword(e.target.value);
     e.target.value === password
-      ? setPasswordControl(true)
-      : setPasswordControl(false);
-  };
-  const render = () => {
-    return (
-      <div className="errorPassword">
-        <span>ATTENZIONE LE PASSWORD NON SONO UGUALI</span>
-      </div>
-    );
+      ? setRegisterError(null)
+      : setRegisterError("Le password non sono uguali");
   };
 
   const uploadFile = async (cover) => {
@@ -60,28 +73,30 @@ function SignIn() {
   };
   const postUser = async (e) => {
     e.preventDefault();
-    if (image) {
-      try {
+    let finalBody = { ...formData };
+    try {
+      if (image) {
         const uploadCover = await uploadFile(image);
-        const finalBody = {
-          ...formData,
+        finalBody = {
+          ...finalBody,
           usrImg: uploadCover.data.cover,
         };
-        const response = await axios.post(
-          `${process.env.REACT_APP_URL}/users/create`,
-          finalBody
-        );
-        console.log(jwt_decode(response.data.token));
-        localStorage.setItem(
-          "userLocalData",
-          JSON.stringify(jwt_decode(response.data.token))
-        );
-        localStorage.setItem("token", JSON.stringify(response.data.token));
-        navigate("/");
-        return response;
-      } catch (error) {
-        console.log(error);
       }
+      const response = await axios.post(
+        `${process.env.REACT_APP_URL}/users/create`,
+        finalBody
+      );
+      console.log(jwt_decode(response.data.token));
+      localStorage.setItem(
+        "userLocalData",
+        JSON.stringify(jwt_decode(response.data.token))
+      );
+      localStorage.setItem("token", JSON.stringify(response.data.token));
+      navigate("/");
+      return response;
+    } catch (error) {
+      setRegisterError(error.response.data.message);
+      console.log(error.response.data.message);
     }
   };
 
@@ -112,41 +127,61 @@ function SignIn() {
                   onChange={formDataImport}
                 />
               </div>
-              <div className="inputArea">
+              <div className="inputArea areaRadio">
+                <label
+                  htmlFor="t1"
+                  className={`radioButt ${
+                    selectedRadius === 1 ? "selected" : ""
+                  }`}
+                  onClick={() => setSelectedRadius(1)}
+                >
+                  Creator
+                </label>
                 <input
-                  type="text"
+                  className="radioButt"
+                  type="radio"
                   id="t1"
                   name="role"
-                  list="l1"
-                  required
-                  pattern="[Cc]reator|[Uu]tente"
-                  placeholder="Tipo di utente"
                   onChange={formDataImport}
-                ></input>
-                <datalist id="l1">
-                  <option>Creator</option>
-                  <option>Utente</option>
-                </datalist>
+                  value="Creator"
+                />
+                <label
+                  htmlFor="t2"
+                  className={`radioButt ${
+                    selectedRadius === 2 ? "selected" : ""
+                  }`}
+                  onClick={() => setSelectedRadius(2)}
+                >
+                  Utente
+                  <input
+                    className="radioButt"
+                    type="radio"
+                    id="t2"
+                    name="role"
+                    onChange={formDataImport}
+                    value="Utente"
+                  />
+                </label>
               </div>
+
               <div className="inputArea">
                 <input
                   type="password"
                   placeholder="Password"
                   onChange={(e) => {
-                    modifiedPassword(e);
                     formDataImport(e);
                   }}
                   name="password"
+                  onBlur={modifiedPassword}
                 />
               </div>
               <div className="inputArea">
                 <input
                   type="password"
                   placeholder="Ripeti password"
-                  onChange={controlPassword}
+                  onBlur={controlPassword}
                 />
               </div>
-              {passwordCompiled && !passwordControl && render()}
               <div className="inputArea">
                 <label class="custom-file-upload">
                   <input
@@ -158,10 +193,18 @@ function SignIn() {
                   Immagine profilo
                 </label>
               </div>
-              <button type="submit">Registrati</button>
+              {registerError && renderRegisterError()}
+              <button
+                type="submit"
+                className={sendable ? "sendable" : "unsendable"}
+              >
+                Registrati
+              </button>
             </form>
           </div>
-          <button className="registrati">Accedi</button>
+          <Link className="linkTo" to={"/Login"}>
+            <button className="registrati">Accedi</button>
+          </Link>
         </div>
       </Col>
       <div

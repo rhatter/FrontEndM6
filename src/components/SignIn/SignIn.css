@@ -22,10 +22,10 @@
 }
 
 .formArea {
-  height: 20rem;
+  height: auto;
 }
 .formArea > form > * {
-  margin: 1rem 0;
+  margin: 0.4rem 0;
 }
 
 .formArea form {
@@ -40,8 +40,8 @@
   height: 100%;
 }
 .formArea .inputArea {
-  width: 100%;
-  font-size: 1.4rem;
+  width: 80%;
+  font-size: 1.1rem;
   background-color: rgba(255, 255, 255, 0);
   display: flex;
   justify-content: center;
@@ -90,14 +90,14 @@ input:focus-visible::-webkit-input-placeholder {
 .formPage button {
   border: none;
   border-radius: 2rem;
-  font-size: 1.4rem;
-  padding: 0 1rem;
+  font-size: 1.2rem;
+  margin-top: 1.4rem;
   height: 2.2rem;
   background-color: rgba(255, 255, 255, 0.359);
   font-weight: 600;
   color: #ffffff;
   transition: 0.3s ease;
-  width: 50%;
+  width: 35%;
 }
 .preFormArea {
   height: 100%;
@@ -114,12 +114,12 @@ input:focus-visible::-webkit-input-placeholder {
 .formArea button:hover {
   background-color: #ffffffc1;
   color: #005c64;
-  width: 100%;
+  width: 50%;
 }
 .preFormArea .registrati:hover {
   background-color: #ffead3;
   color: #c88d7a;
-  width: 100%;
+  width: 30%;
 }
 
 .formArea .titleArea {
@@ -140,4 +140,45 @@ input:focus-visible::-webkit-input-placeholder {
 
 input[type="file"] {
   display: none;
+}
+
+input[type="radio"].radioButt:checked {
+  padding: 0;
+}
+
+input[type="radio"].radioButt {
+  display: none;
+}
+
+.radioButt {
+  width: 5rem !important;
+}
+
+label {
+  text-align: center;
+  padding: 0 !important;
+  margin: 0 !important;
+  padding: 0px;
+  width: 5rem;
+}
+.areaRadio {
+  display: flex !important;
+  justify-content: space-evenly !important;
+}
+
+.radioButt.selected {
+  background-color: white;
+  color: #005c6498;
+}
+
+button.unsendable {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.linkTo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
 }
