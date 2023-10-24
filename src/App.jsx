@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Protected from "./middlewares/Protected";
 import UserDetail from "./pages/UserDetail";
 import MydataPage from "./pages/MydataPage";
+import MyArticles from "./pages/MyArticles";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route element={<Protected />}>
           <Route path="/book/user/:bookId" element={<UserDetail />}></Route>
           <Route path="/book/mydata" element={<MydataPage />}></Route>
+          <Route path="/myarticle/:userID" element={<MyArticles />}></Route>
         </Route>
 
         <Route path="*" element={<Error />} />
