@@ -119,10 +119,10 @@ input:focus-visible::-webkit-input-placeholder {
 .preFormArea .registrati:hover {
   background-color: #ffead3;
   color: #c88d7a;
-  width: 30%;
+  width: 40%;
 }
 
-.formArea .titleArea {
+.Mydatapage .formArea .titleArea {
   font-size: 2.4rem;
   display: flex;
   justify-content: center;

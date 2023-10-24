@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import SingleArticle from "../SigleArticle/SingleArticle";
 import "./Articles.css";
-import Pagination from "../Pagination/Pagination";
+import Pagination from "../pagination/Pagination";
 
 function Articles() {
   const [articlesData, setArticles] = useState([]);

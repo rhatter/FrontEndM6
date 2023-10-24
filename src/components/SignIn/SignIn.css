@@ -23,6 +23,7 @@
 
 .formArea {
   height: auto;
+  width: 100%;
 }
 .formArea > form > * {
   margin: 0.4rem 0;
@@ -105,6 +106,7 @@ input:focus-visible::-webkit-input-placeholder {
   justify-content: space-between;
   flex-flow: column;
   align-items: center;
+  width: ;
 }
 
 .preFormArea .registrati {

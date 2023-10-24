@@ -62,6 +62,7 @@ function LoginForm() {
       <Col xs={12} sm={8} md={6} lg={4} xl={4} className="column">
         <div className="preFormArea">
           <div></div>
+          <div></div>
           <div className="formArea">
             <form action="" encType="multipart/form-data" onSubmit={logUser}>
               <div className="titleArea">
@@ -87,12 +88,11 @@ function LoginForm() {
               <button type="submit">Accedi</button>
             </form>
           </div>
-
-          <button className="registrati">Registrati</button>
           <button className="gitAccess" onClick={redirectHandler}>
             Accedi con Github
             <img className="gitIcon" src={gitIcon} alt="" />
           </button>
+          <button className="registrati">Registrati</button>
         </div>
       </Col>
 
