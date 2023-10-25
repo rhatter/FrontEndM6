@@ -7,7 +7,7 @@ function MyArticles() {
     <>
       <div className="myArticlePage">
         <MyNavBar />
-        <MyArticlesBody></MyArticlesBody>
+        <MyArticlesBody />
       </div>
     </>
   );

@@ -3,8 +3,12 @@ import { useState, useEffect } from "react";
 import "./SingleArticle.css";
 import { Link } from "react-router-dom";
 import { Container, Col, Row } from "react-bootstrap";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function SingleArticle({ post }) {
+function SingleArticle({ post, modify, articleID }) {
+  const [commentable, setCommentable] = useState(false);
+
   useEffect(() => {
     console.log("dati", post);
   }, []);
@@ -22,7 +26,12 @@ function SingleArticle({ post }) {
   return (
     <>
       <Col className="cardArea" sm={12} lg={12} xl={6}>
-        <div className="Card">
+        <div
+          className="Card"
+          onClick={() => {
+            commentable ? setCommentable(false) : setCommentable(true);
+          }}
+        >
           <div className="CardImageArea">
             <div className="CardImage">
               <Link to={dirToDetails()}>
@@ -38,7 +47,7 @@ function SingleArticle({ post }) {
               <p className="content">{post.content}</p>
             </div>
             <div className="ReadTimeArea">
-              <span className="Author">{post.author}</span>
+              <span className="Author">{post.author.name}</span>
               <span className="ReadTime">
                 {post.readTime.value} {post.readTime.unit}
               </span>
@@ -49,6 +58,15 @@ function SingleArticle({ post }) {
           </div>
         </div>
       </Col>
+      <Link
+        to={`/modyfyarticle/${articleID}`}
+        className={`modifyArticle ${modify ? "" : "collapse"} ${
+          commentable ? "commentable" : "notcommentable"
+        }`}
+      >
+        <span>Modifica</span>
+        <FontAwesomeIcon icon={faPencil} />
+      </Link>
     </>
   );
 }

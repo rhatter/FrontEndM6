@@ -10,6 +10,7 @@ import Protected from "./middlewares/Protected";
 import UserDetail from "./pages/UserDetail";
 import MydataPage from "./pages/MydataPage";
 import MyArticles from "./pages/MyArticles";
+import ModifyArticle from "./pages/ModifyArticle";
 
 function App() {
   return (
@@ -23,9 +24,10 @@ function App() {
         <Route path="/Signin" element={<Signin />} />
 
         <Route element={<Protected />}>
-          <Route path="/book/user/:bookId" element={<UserDetail />}></Route>
-          <Route path="/book/mydata" element={<MydataPage />}></Route>
-          <Route path="/myarticle/:userID" element={<MyArticles />}></Route>
+          <Route path="/book/user/:bookId" element={<UserDetail />} />
+          <Route path="/book/mydata" element={<MydataPage />} />
+          <Route path="/myarticle/:userID" element={<MyArticles />} />
+          <Route path="/modyfyarticle/:articleID" element={<ModifyArticle />} />
         </Route>
 
         <Route path="*" element={<Error />} />

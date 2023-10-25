@@ -19,6 +19,7 @@
   background-color: #34537b;
   color: white;
   transition: 0.3s ease;
+  z-index: 2;
 }
 .Card:hover {
   background-color: #4c6c96;
@@ -72,5 +73,16 @@
   margin-bottom: 1rem;
 }
 .Card {
+  overflow: hidden;
+}
+
+.notcommentable {
+  height: 0;
+}
+.commentable {
+  height: 2rem;
+}
+.modifyArticle {
+  z-index: 0;
   overflow: hidden;
 }

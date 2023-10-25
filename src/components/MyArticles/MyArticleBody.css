@@ -1,0 +1,48 @@
+.ArticleArea {
+  display: flex;
+  justify-content: center;
+}
+
+.MyArticleBack {
+  background-color: #34537b;
+  min-height: 100vh;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  width: 100%;
+}
+.MyArticlePage {
+  background-color: #34537b;
+}
+
+.MyArticlePage .cardArea {
+  border-bottom: 1px white solid;
+  margin-bottom: 0;
+}
+
+.modifyArticle {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+.modifyArticle * {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.582);
+  transition: 0.3s ease;
+  padding: 0.3rem;
+}
+
+.modifyArticle:hover * {
+  color: white;
+}
+.modifyArticle {
+  transition: 0.3s ease;
+}
+.modifyArticle.notvisible {
+  margin-top: -3rem;
+}
+.modifyArticle.visible {
+  margin-top: 0rem;
+}

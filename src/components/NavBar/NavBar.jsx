@@ -36,9 +36,11 @@ function MyNavBar({}) {
 
   const createLogoutButtons = () => {
     return (
-      <span className="logout" onClick={logoutFunction}>
-        Logout
-      </span>
+      <div style={{ padding: "8px" }}>
+        <span className="logout" onClick={logoutFunction}>
+          Logout
+        </span>
+      </div>
     );
   };
   const navigate = useNavigate();
@@ -75,6 +77,12 @@ function MyNavBar({}) {
             <Nav>
               <Nav.Link href="/">Home</Nav.Link>
               {!logged && createLoginButtons()}
+
+              {logged && (
+                <Nav.Link href={`/myarticle/${userData.id}`}>
+                  I miei articoli
+                </Nav.Link>
+              )}
               {logged && createLogoutButtons()}
             </Nav>
           </Navbar.Collapse>
