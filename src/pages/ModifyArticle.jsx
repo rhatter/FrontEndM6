@@ -125,7 +125,9 @@ const ModifyArticle = () => {
                   placeholder="title"
                   name="title"
                   onChange={formDataImport}
-                ></textarea>
+                >
+                  {}
+                </textarea>
               </div>
 
               <div className="inputArea">

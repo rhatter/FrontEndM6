@@ -45,6 +45,7 @@ function MyNavBar({}) {
   };
   const navigate = useNavigate();
   const logoutFunction = () => {
+    setLogged(false);
     localStorage.removeItem("userLocalData");
     localStorage.removeItem("token");
     localStorage.removeItem("autorization");
