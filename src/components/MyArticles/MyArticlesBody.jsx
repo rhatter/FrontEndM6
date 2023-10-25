@@ -51,15 +51,15 @@ const MyArticlesBody = () => {
     <>
       <div className="MyArticleBack"></div>
       <div className="MyArticlePage">
-        <div className="ArticleArea">
-          <Col xs={12} sm={12} md={10}>
+        <Col xs={12} sm={12} md={10}>
+          <div className="ArticleArea">
             {articles.map((e) => (
               <div>
                 <SingleArticle post={e} modify={true} articleID={e._id} />
               </div>
             ))}
-          </Col>
-        </div>
+          </div>
+        </Col>
       </div>
     </>
   );

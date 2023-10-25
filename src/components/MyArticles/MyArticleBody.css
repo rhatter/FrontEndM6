@@ -1,6 +1,12 @@
-.ArticleArea {
+.MyArticlePage {
   display: flex;
   justify-content: center;
+  position: relative;
+}
+
+.MyArticlePage .cardArea,
+.ArticleArea {
+  width: 100%;
 }
 
 .MyArticleBack {
