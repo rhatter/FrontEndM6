@@ -32,7 +32,7 @@ function DetailedArticle({ post }) {
     <div className="singleArticlePage">
       <div className="colorBackground"></div>
       <div className="authorArea">
-        <span>{post.author}</span>
+        <span>{post.author && post.author.name}</span>
       </div>
       <div className="line"></div>
       <div className="titleArea">
@@ -47,7 +47,7 @@ function DetailedArticle({ post }) {
           <div className="firstBlock">
             <div className="authorphotoArea"></div>
             <div className="authorNameArea">
-              <span>{post.author}</span>
+              <span>{post.author && post.author.name}</span>
             </div>
           </div>
           <Col xs={12} md={8} className="centralBlock">
