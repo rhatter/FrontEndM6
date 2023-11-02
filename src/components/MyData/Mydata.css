@@ -48,15 +48,22 @@
 }
 
 .formArea input,
-.formArea label {
+.formArea label,
+.formArea select {
   border-radius: 2rem;
   padding: 0 1.4rem;
   width: 100%;
   border: none;
   background-color: rgba(255, 255, 255, 0.359);
-  color: white;
+  color: rgb(255, 255, 255);
   transform: 0.5s ease;
 }
+.formArea select:focus-within {
+  background-color: rgba(255, 255, 255, 0.573);
+  color: black;
+}
+
+.formArea select::[d]
 
 ::-webkit-input-placeholder {
   color: rgb(244, 244, 244) !important;

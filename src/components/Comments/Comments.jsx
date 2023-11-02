@@ -24,7 +24,6 @@ function Comments({ post }) {
     <div className="commentArea">
       <div className="commentBackground"></div>
       <Col xs={12} md={10} lg={9} xl={7} xxl={5} className="">
-        {comments && console.log("comment", comments)}
         {comments.map((comment) => (
           <Comment comment={comment} />
         ))}

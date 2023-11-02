@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate, Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
-const NewArticle = ({ state }) => {
+const NewArticle = ({ state }, setRefresh) => {
   const { commenting, setCommenting } = state;
   const [thisPost, setThisPost] = useState({});
   const [sendable, setSendable] = useState(false);
@@ -17,28 +17,23 @@ const NewArticle = ({ state }) => {
   const [changedImage, setChangedImage] = useState(false);
   const { articleID } = useParams();
   const userData = JSON.parse(localStorage.getItem("userLocalData"));
-  const getArticleById = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_URL}/post/byid/${articleID}`
-      );
-      setThisPost(response.post);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   useEffect(() => {
-    getArticleById();
+    setFormData({
+      readTime: { unit: "Minuti", value: 15 },
+      category: "Avventura",
+      rate: 2.5,
+      author: userData.id,
+    });
   }, []);
 
   useEffect(() => {
-    if (formData.title || formData.content || formData.readTime || image) {
+    if (formData.title && formData.content && formData.readTime && image) {
       setSendable(true);
     } else {
       setSendable(false);
     }
-  }, [formData]);
+  }, [formData, changedImage]);
 
   const uploadFile = async (cover) => {
     const fileData = new FormData();
@@ -66,6 +61,9 @@ const NewArticle = ({ state }) => {
 
   const postUser = async (e) => {
     e.preventDefault();
+    if (!sendable) {
+      return;
+    }
     let finalBody = { ...formData };
     try {
       if (image) {
@@ -75,12 +73,12 @@ const NewArticle = ({ state }) => {
           cover: uploadCover.data.cover,
         };
       }
-      const response = await axios.patch(
-        `${process.env.REACT_APP_URL}/posts/update/${thisPost._id}`,
+      const response = await axios.post(
+        `${process.env.REACT_APP_URL}/posts/create`,
         finalBody
       );
-      navigate(`/myarticle/${userData.id}`);
-      return response;
+      setCommenting(false);
+      window.location.reload(false);
     } catch (error) {
       setRegisterError(error.response);
       console.log(error.response);
@@ -107,6 +105,7 @@ const NewArticle = ({ state }) => {
         ...formData,
         readTime: { ...formData.readTime, [name]: value },
       });
+      console.log(formData);
     } else {
       setFormData({ ...formData, [name]: value });
       console.log(formData);
@@ -132,13 +131,13 @@ const NewArticle = ({ state }) => {
                   <div className="inputArea title">
                     <textarea
                       type="text"
-                      placeholder=""
+                      placeholder="Dai un titolo alla tua storia"
                       name="title"
                       onChange={(e) => {
                         setThisPost({ ...thisPost, title: e.target.value });
                         formDataImport(e);
                       }}
-                      value={thisPost.title}
+                      value={thisPost.title ? thisPost.title : ""}
                     >
                       {thisPost.title}
                     </textarea>
@@ -146,13 +145,13 @@ const NewArticle = ({ state }) => {
                   <div className="inputArea content">
                     <textarea
                       type="text"
-                      placeholder="content"
+                      placeholder="Racconta la tua esperienza"
                       name="content"
                       onChange={(e) => {
                         setThisPost({ ...thisPost, content: e.target.value });
                         formDataImport(e);
                       }}
-                      value={thisPost.content}
+                      value={thisPost.content ? thisPost.content : ""}
                     ></textarea>
                   </div>
                   <div className="timeArea">
@@ -164,19 +163,21 @@ const NewArticle = ({ state }) => {
                           setThisPost({
                             ...thisPost,
                             readTime: {
-                              ...thisPost.readtime,
+                              ...thisPost.readTime,
                               value: e.target.value,
                             },
                           });
                           formDataImport(e);
                         }}
                         placeholder={
-                          thisPost.readTime && thisPost.readTime.value
+                          thisPost.readTime ? thisPost.readTime.value : 15
                         }
+                        value={thisPost.readTime ? thisPost.readTime.value : 15}
                       ></input>
                     </div>
                     <div className="inputArea unit">
-                      <input
+                      <select
+                        list="time"
                         type="text"
                         placeholder="reading time"
                         name="unit"
@@ -184,31 +185,37 @@ const NewArticle = ({ state }) => {
                           setThisPost({
                             ...thisPost,
                             readTime: {
-                              ...thisPost.readtime,
+                              ...thisPost.readTime,
                               unit: e.target.value,
                             },
                           });
                           formDataImport(e);
                         }}
-                        value={thisPost.readTime && thisPost.readTime.unit}
-                      ></input>
+                        value={
+                          thisPost.readTime ? thisPost.readTime.unit : "Minuti"
+                        }
+                      >
+                        <option value="Minuti">Minuti</option>
+                        <option value="Ore">Ore</option>
+                        <option value="Secondi">Secondi</option>
+                      </select>
+                    </div>
+                    <div className="inputArea file">
+                      <label class="custom-file-upload">
+                        <input
+                          type="file"
+                          placeholder="Immagine profilo"
+                          name="cover"
+                          onChange={(e) => {
+                            onChangeImage(e);
+                            setChangedImage(true);
+                          }}
+                        />
+                        Immagine
+                      </label>
                     </div>
                   </div>
 
-                  <div className="inputArea file">
-                    <label class="custom-file-upload">
-                      <input
-                        type="file"
-                        placeholder="Immagine profilo"
-                        name="cover"
-                        onChange={(e) => {
-                          onChangeImage(e);
-                          setChangedImage(true);
-                        }}
-                      />
-                      Immagine
-                    </label>
-                  </div>
                   {registerError && renderRegisterError()}
                   <button
                     type="submit"

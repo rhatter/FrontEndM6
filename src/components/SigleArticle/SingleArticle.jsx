@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Container, Col, Row } from "react-bootstrap";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import DeletButton from "../DeleteButton/DeletButton";
 
 function SingleArticle({ post, modify, articleID }) {
   const [commentable, setCommentable] = useState(false);
@@ -58,15 +59,17 @@ function SingleArticle({ post, modify, articleID }) {
           </div>
         </div>
       </Col>
-      <Link
-        to={`/modyfyarticle/${articleID}`}
+      <div
         className={`modifyArticle ${modify ? "" : "collapse"} ${
           commentable ? "commentable" : "notcommentable"
         }`}
       >
-        <span>Modifica</span>
-        <FontAwesomeIcon icon={faPencil} />
-      </Link>
+        <Link to={`/modyfyarticle/${articleID}`}>
+          <span>Modifica</span>
+          <FontAwesomeIcon icon={faPencil} />
+        </Link>
+        <DeletButton postID={articleID}></DeletButton>
+      </div>
     </>
   );
 }

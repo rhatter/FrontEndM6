@@ -5,12 +5,16 @@ import Comments from "../Comments/Comments";
 import NewComment from "../NewComment/NewComment";
 
 function DetailedArticle({ post }) {
+  const [firstLine, setFirstLine] = useState("");
+  const [restOfTheLines, setRestOfTheLine] = useState([]);
   useEffect(() => {}, [post]);
-  let firstLine = "";
-  let restOfTheLines = [];
+  let restOfTheLinesArr = [];
   const allContent = () => {
-    //post.content;
-    const text = `Il Kilimangiaro, noto anche come Kilimanjaro, è il monte più alto dell'Africa e una delle icone geografiche del continente. Questa imponente vetta vulcanica si trova nella Tanzania settentrionale, nella regione del Kilimanjaro. Il monte è una delle principali attrazioni naturali del continente africano e attira escursionisti, alpinisti e amanti della natura da tutto il mondo.
+    if (!post.content) {
+      return;
+    }
+    const text = post.content;
+    const textTest = `Il Kilimangiaro, noto anche come Kilimanjaro, è il monte più alto dell'Africa e una delle icone geografiche del continente. Questa imponente vetta vulcanica si trova nella Tanzania settentrionale, nella regione del Kilimanjaro. Il monte è una delle principali attrazioni naturali del continente africano e attira escursionisti, alpinisti e amanti della natura da tutto il mondo.
 
     Il Kilimangiaro è costituito da tre vulcani spenti sovrapposti: il Kibo, il Mawenzi e il Shira. Il Kibo è la cima più alta, raggiungendo un'altitudine di 5.895 metri sul livello del mare. La vetta è spesso coperta da un cappuccio di neve, creando un contrasto spettacolare con la savana circostante. L'ascesa al Kilimangiaro è una sfida emozionante, con diverse rotte di trekking che consentono ai visitatori di esplorare il paesaggio unico e di vivere l'esperienza di raggiungere la cima dell'Africa.
     
@@ -20,13 +24,16 @@ function DetailedArticle({ post }) {
     
     In sintesi, il Kilimangiaro è una maestosa montagna africana, una meta ambita per gli amanti dell'escursionismo e dell'alpinismo, con un paesaggio vario e affascinante e una ricca biodiversità circostante. La sua imponenza e la sua posizione la rendono una delle attrazioni naturali più iconiche dell'Africa.`;
     const splittedText = text.split(`.`);
-    firstLine = splittedText[0] + ".";
+    setFirstLine(splittedText[0] + ".");
     const secondSplit = text.split(`\n`);
     for (let i = 1; i < secondSplit.length; i++) {
-      restOfTheLines.push(secondSplit[i]);
+      restOfTheLinesArr.push(secondSplit[i]);
     }
+    setRestOfTheLine(restOfTheLinesArr);
   };
-  allContent();
+  useEffect(() => {
+    allContent();
+  }, [post]);
 
   return (
     <div className="singleArticlePage">
