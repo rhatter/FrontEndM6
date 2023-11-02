@@ -63,8 +63,6 @@
   color: black;
 }
 
-.formArea select::[d]
-
 ::-webkit-input-placeholder {
   color: rgb(244, 244, 244) !important;
   opacity: 1;

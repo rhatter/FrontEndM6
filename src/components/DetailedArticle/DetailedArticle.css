@@ -63,8 +63,7 @@
 
   justify-content: center;
 }
-.contentArea > .centralBlock {
-}
+
 .contentArea > .firstBlock,
 .contentArea > .lastBlock {
   width: 20%;
